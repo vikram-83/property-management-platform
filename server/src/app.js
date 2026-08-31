@@ -19,6 +19,25 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Static Folder for Uploads (Images/Documents)
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+// Static Folder for Uploads (Images/Documents)
+app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
+
+// Root Route (ब्राउज़र में direct URL खोलने के लिए)
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Property Management API is running successfully",
+  });
+});
+
+// API Health Check Route
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "OK", message: "Server is running fine." });
+});
+
+// API Routes Mounting
+app.use("/api/auth", require("./routes/authRoutes"));
+// ... बाकी के सारे routes
 
 // API Health Check Route
 app.get("/api/health", (req, res) => {
