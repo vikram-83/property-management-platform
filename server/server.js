@@ -11,15 +11,17 @@ connectDB();
 
 const server = http.createServer(app);
 
-// Socket.IO setup (Step 7 — real-time notifications / live ticket updates)
+// Socket.IO setup (Updated with Live Vercel URLs)
 const io = new Server(server, {
   cors: {
     origin: [
-      process.env.CLIENT_URL || "http://localhost:5173",
+      process.env.CLIENT_URL,
+      "https://property-management-platform-murex.vercel.app",
+      "https://property-management-platform-git-main-vikram-83s-projects.vercel.app",
+      "http://localhost:5173",
       "http://localhost:5174",
-      "http://127.0.0.1:5173",
-      "http://127.0.0.1:5174"
-    ],
+      "http://127.0.0.1:5173"
+    ].filter(Boolean), // remove undefined values
     credentials: true,
   },
 });

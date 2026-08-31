@@ -8,9 +8,25 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const app = express();
 
 // Standard Middlewares
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "https://property-management-platform-murex.vercel.app",
+  "https://property-management-platform-git-main-vikram-83s-projects.vercel.app",
+  "https://property-management-platform-l8c6jhwci-vikram-83s-projects.vercel.app",
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "http://127.0.0.1:5173"
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS Policy: Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
