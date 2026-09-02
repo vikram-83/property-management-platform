@@ -36,16 +36,27 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const data = await authService.login(email, password);
-    const authenticatedUser = data.user || data;
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(authenticatedUser));
-    setUser(authenticatedUser);
-    return { ...data, user: authenticatedUser };
+    try {
+      const data = await authService.login(email, password);
+      const authenticatedUser = data.user || data;
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(authenticatedUser));
+      setUser(authenticatedUser);
+      return { ...data, user: authenticatedUser };
+    } catch (error) {
+      // Re-throw with proper error structure
+      throw error;
+    }
   };
 
   const register = async (payload) => {
-    return authService.register(payload);
+    try {
+      const data = await authService.register(payload);
+      return data;
+    } catch (error) {
+      // Re-throw with proper error structure
+      throw error;
+    }
   };
 
   const logout = () => {
