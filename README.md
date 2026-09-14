@@ -1,4 +1,4 @@
-# Property Management Platform
+# Property Management Platformnn
 
 Full-stack property management system — React (Vite) frontend, Node/Express backend, MongoDB (Mongoose) database, JWT auth with 5 roles (admin, manager, tenant, staff, vendor), and Socket.IO wired in for real-time notifications.
 
